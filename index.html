@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coinquest</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-bar glass">
+        <div>
+          <h1>🪙 Coinquest</h1>
+          <p>Level up real-life money skills in under 5 minutes.</p>
+        </div>
+        <div class="top-stats">
+          <span id="header-level" class="pill">Level 1</span>
+          <span id="header-xp" class="pill">0 XP</span>
+          <span id="header-streak" class="pill">🔥 0-day streak</span>
+        </div>
+      </header>
+
+      <main>
+        <section id="auth-screen" class="card screen active">
+          <h2>Start your Coinquest run</h2>
+          <p>Sign up with your squad, earn streaks, and unlock money mastery badges.</p>
+          <form id="auth-form">
+            <label>
+              Display Name
+              <input required id="auth-name" placeholder="Skylar_11" />
+            </label>
+            <label>
+              Email
+              <input required id="auth-email" type="email" placeholder="you@example.com" />
+            </label>
+            <label>
+              Password
+              <input required id="auth-password" type="password" minlength="6" placeholder="••••••" />
+            </label>
+            <div class="row">
+              <button type="submit" class="btn btn-primary">Create Account</button>
+              <button type="button" id="login-btn" class="btn btn-secondary">Log In</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="dashboard-screen" class="screen">
+          <div class="grid two">
+            <article class="card glass">
+              <h2>Daily Quest Progress</h2>
+              <div class="progress-wrap">
+                <div class="progress-label">
+                  <span id="daily-progress-label">0 / 1 lesson today</span>
+                  <span id="daily-progress-percent">0%</span>
+                </div>
+                <div class="progress-bar"><div id="daily-progress-bar"></div></div>
+              </div>
+              <p class="muted" id="daily-challenge"></p>
+            </article>
+            <article class="card glass">
+              <h2>Recommended Next Quest</h2>
+              <p id="recommended-lesson">Jump into your first course to get recommendations.</p>
+              <button id="start-recommended" class="btn btn-primary">Start Quest</button>
+            </article>
+          </div>
+          <div class="grid three stats-grid" id="stats-cards"></div>
+        </section>
+
+        <section id="courses-screen" class="screen">
+          <h2>Course Library</h2>
+          <p class="muted">Choose your path. Beat levels to unlock the next financial zone.</p>
+          <div id="course-library" class="grid three"></div>
+        </section>
+
+        <section id="lesson-screen" class="screen">
+          <article class="card glass">
+            <h2 id="lesson-title">Lesson</h2>
+            <p class="muted" id="lesson-meta"></p>
+            <h3>Quick Breakdown</h3>
+            <p id="lesson-explanation"></p>
+            <h3>Real-Life Scenario</h3>
+            <p id="lesson-scenario"></p>
+            <h3>Challenge Quiz</h3>
+            <p id="lesson-question"></p>
+            <div id="quiz-options" class="quiz-options"></div>
+            <p id="quiz-feedback" class="quiz-feedback"></p>
+            <div class="row">
+              <button id="next-lesson-btn" class="btn btn-primary" disabled>Next Level</button>
+              <button id="back-courses-btn" class="btn btn-secondary">Back to Courses</button>
+            </div>
+          </article>
+        </section>
+
+        <section id="progress-screen" class="screen">
+          <div class="grid two">
+            <article class="card glass">
+              <h2>Your Stats</h2>
+              <ul id="progress-summary" class="clean-list"></ul>
+            </article>
+            <article class="card glass">
+              <h2>Badges & Achievements</h2>
+              <div id="badge-grid" class="badge-grid"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="leaderboard-screen" class="screen">
+          <article class="card glass">
+            <h2>XP Leaderboard</h2>
+            <table>
+              <thead>
+                <tr><th>#</th><th>Player</th><th>XP</th><th>Level</th></tr>
+              </thead>
+              <tbody id="leaderboard-body"></tbody>
+            </table>
+          </article>
+        </section>
+
+        <section id="tools-screen" class="screen">
+          <h2>Money Power Tools</h2>
+          <div class="grid three">
+            <article class="card glass">
+              <h3>Budget Builder</h3>
+              <input id="income" type="number" placeholder="Monthly income" />
+              <input id="expenses" type="number" placeholder="Monthly expenses" />
+              <button id="calc-budget" class="btn btn-primary">Calculate</button>
+              <p id="budget-result" class="tool-result"></p>
+            </article>
+            <article class="card glass">
+              <h3>Compound Interest</h3>
+              <input id="principal" type="number" placeholder="Starting amount" />
+              <input id="rate" type="number" placeholder="Annual rate %" />
+              <input id="years" type="number" placeholder="Years" />
+              <button id="calc-interest" class="btn btn-primary">Simulate</button>
+              <p id="interest-result" class="tool-result"></p>
+            </article>
+            <article class="card glass">
+              <h3>Savings Goal Tracker</h3>
+              <input id="goal" type="number" placeholder="Goal amount" />
+              <input id="monthly-save" type="number" placeholder="Monthly savings" />
+              <button id="calc-goal" class="btn btn-primary">Track Goal</button>
+              <p id="goal-result" class="tool-result"></p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <nav class="bottom-nav glass">
+        <button data-screen="dashboard-screen" class="nav-btn active">Home</button>
+        <button data-screen="courses-screen" class="nav-btn">Courses</button>
+        <button data-screen="progress-screen" class="nav-btn">Progress</button>
+        <button data-screen="leaderboard-screen" class="nav-btn">Leaderboard</button>
+        <button data-screen="tools-screen" class="nav-btn">Tools</button>
+      </nav>
+    </div>
+
+    <template id="course-card-template">
+      <article class="card glass course-card">
+        <h3 class="course-title"></h3>
+        <p class="muted course-lessons"></p>
+        <div class="progress-bar"><div class="course-progress"></div></div>
+        <p class="muted course-status"></p>
+        <button class="btn btn-primary start-course">Continue</button>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
